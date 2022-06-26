@@ -1,51 +1,89 @@
 from model import db, User, Plant, UserSelectedPlant, connect_to_db
+from datetime import datetime
 
 
 def create_user(fname, lname, email, password, zipcode):
-    
+    """Create and return a new user."""
 
     user = User(fname=fname, lname=lname, email=email, password=password, zipcode=zipcode)
 
     return user
 
 
-def create_plant(name, plant_species,plant_spacing,plant_watering,plant_fertilize,plant_diseases,plant_image_url,
-plant_pests,plant_harvesting,plant_use,plant_optimal_sun,plant_optimal_ph,plant_optimal_soil,plant_description,
-plant_transplant,plant_seed,planting_time,plant_recipes):
+def get_users():
+    """Return all users."""
+
+    return User.query.all()
+
+
+def get_user_by_id(user_id):
+    """Return a user by primary key."""
+
+    return User.query.get(user_id)
+
+
+def get_user_by_email(email):
+    """Return a user by email."""
+
+    return User.query.filter(User.email == email).first()
+
+
+def create_plant(plant_id, name, description, spacing, watering, feeding, diseases, 
+image_url, pests, harvesting, storage_use, optimal_sun,optimal_soil, transplanting, 
+growing_from_seed, planting_considerations, when_to_plant, other_care  ):
    
 
     plant = Plant(
-       name=name,
-       plant_species=plant_species,
-       plant_spacing=plant_spacing,
-       plant_watering=plant_watering,
-       plant_fertilize=plant_fertilize,
-       plant_diseases=plant_diseases,
-       plant_image_url=plant_image_url,
-       plant_pests=plant_pests,
-       plant_harvesting=plant_harvesting,
-       plant_use=plant_use,
-       plant_optimal_sun=plant_optimal_sun,
-       plant_optimal_ph=plant_optimal_ph, 
-       plant_optimal_soil=plant_optimal_soil,
-       plant_description=plant_description,
-       plant_transplant=plant_transplant,
-       plant_seed=plant_seed,
-       planting_time=planting_time,
-       plant_recipes=plant_recipes
+      
+       plant_id= plant_id,
+       name = name, 
+       description= description, 
+       spacing= spacing, 
+       watering =watering, 
+       feeding=feeding, 
+       diseases=diseases, 
+       image_url= image_url, 
+       pests=pests, 
+       harvesting=harvesting, 
+       storage_use=storage_use, 
+       optimal_sun=optimal_sun,
+       optimal_soil=optimal_soil, 
+       transplanting=transplanting, 
+       growing_from_seed=growing_from_seed, 
+       planting_considerations=planting_considerations,
+       when_to_plant=when_to_plant, 
+       other_care=other_care
  
        )
 
     return plant
 
+def get_plants():
+    """Return all plants."""
 
-def create_user_selected_plant(user, plant, start_date):
-  
+    return Plant.query.all()
 
-    selected_plants = UserSelectedPlant(user=user, plant=plant, start_date=start_date)
+
+def get_plant_by_id(plant_id):
+    """Return a plant by primary key and api id."""
+
+    return Plant.query.get(plant_id)
+
+
+def create_user_selected_plant(user_id, plant_id):
+    "function to create a fake selected plant "
+    selected_plants = UserSelectedPlant(user_id=user_id, plant_id=plant_id)
 
     return selected_plants
 
+def calculate_planting_date_range ():
+    "function to caluate optimal date range to plant a seed"
+    return {
+        "start_date": datetime.now(),
+        "end_date": datetime.now() + datetime.timedelta(weeks=2),
+    }
+
+   
 
 if __name__ == "__main__":
     from server import app

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ plant.name }} - Details{% endblock %}
+
+{% block body %}
+<h1>{{ plant.name }}</h1>
+
+<p>
+  {{ plant.name }}
+  {{ plant.description }}
+  {{ plant.optimal_sun }}
+  {{ plant.optimal_soil }}
+  {{ plant.spacing }}
+  {{ plant.watering }}
+  {{ plant.feeding }}
+  {{ plant.diseases }}
+  {{ plant.pests }}
+  {{ plant.planting_considerations }}
+  {{ plant.harvesting }}
+  {{ plant.storage_use }}
+  {{ plant.other_care }}
+  {{ plant.transplanting }}
+  {{ plant.growing_from_seed }}
+</p>
+
+
+
+<img src="{{ plant.image_url }}">
+{% endblock %}

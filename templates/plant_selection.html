@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Plant Selection{% endblock %}
+
+{% block body %}
+  <h1>Start your Garden!</h1>
+  <h2>First step is selecting which palnts you want in your garden!</h2>
+  <form action="/plant_selection" method="POST">
+  <ul>
+    {% for plant in plants %}
+    
+        <input type="checkbox" name="plant_selection" value="{{ plant.plant_id }}">
+        <label for="plant_selection"> {{ plant.name }}</label><br> 
+    
+    {% endfor %}
+  </ul>
+  <input type="submit">
+</form>
+{% endblock %}

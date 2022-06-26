@@ -15,32 +15,31 @@ class User(db.Model):
     password = db.Column(db.String(100), nullable=False)
     zipcode = db.Column(db.Integer, nullable=False)
 
-    plants = db.relationship("Plant", secondary="user_selected_plants", backref="users")    
+    
     
 class Plant(db.Model):
     """Data model for an plants."""
     __tablename__ = "plants"
 
-
-    plant_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    plant_id  = db.Column(db.Integer, primary_key=True)    
     name = db.Column(db.String(50), nullable=False)
-    plant_consideration = db.Column(db.String)
-    plant_spacing = db.Column(db.Text)
-    plant_watering = db.Column(db.Text)
-    plant_fertilizer = db.Column(db.Text)
-    plant_diseases = db.Column(db.Text)
-    plant_image_url = db.Column(db.String)
-    plant_pests = db.Column(db.Text)
-    plant_harvesting = db.Column(db.Text)
-    plant_use = db.Column(db.Text)
-    plant_optimal_sun = db.Column(db.Text)
-    plant_optimal_ph = db.Column(db.Text)
-    plant_optimal_soil = db.Column(db.Text)
-    plant_description =db.Column(db.Text)
-    plant_transplant = db.Column(db.Text)
-    plant_seed = db.Column(db.Text)
-    planting_time = db.Column(db.Text)
-    plant_recipes= db.Column(db.Text)
+    description =db.Column(db.String)
+    spacing = db.Column(db.Text)
+    watering = db.Column(db.Text)
+    feeding = db.Column(db.Text)
+    diseases = db.Column(db.Text)
+    image_url =db.Column(db.String)
+    pests = db.Column(db.Text)
+    harvesting = db.Column(db.Text)
+    storage_use = db.Column(db.Text)
+    optimal_sun = db.Column(db.Text)
+    optimal_soil = db.Column(db.Text)
+    transplanting = db.Column(db.Text)
+    growing_from_seed = db.Column(db.Text)
+    planting_considerations = db.Column(db.Text) 
+    when_to_plant = db.Column(db.Text)
+    other_care = db.Column(db.Text)
+
 
     # backref allowed for access to users (magic attribute)
 
@@ -54,6 +53,9 @@ class UserSelectedPlant(db.Model):
     plant_id =  db.Column(db.Integer, db.ForeignKey("plants.plant_id"))
     user_id =  db.Column(db.Integer, db.ForeignKey("users.user_id")) 
     start_date = db.Column(db.Date)
+
+    plants = db.relationship("Plant", backref="user_selected_plants")   
+    users= db.relationship("User", backref="user_selected_plants")
 
 
 def connect_to_db(flask_app, db_uri="postgresql:///my_garden", echo=True):
