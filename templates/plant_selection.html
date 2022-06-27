@@ -3,13 +3,13 @@
 
 {% block body %}
   <h1>Start your Garden!</h1>
-  <h2>First step is selecting which palnts you want in your garden!</h2>
+  <h2>First step is selecting which plants you want in your garden!</h2>
   <form action="/plant_selection" method="POST">
   <ul>
     {% for plant in plants %}
     
-        <input type="checkbox" name="plant_selection" value="{{ plant.plant_id }}">
-        <label for="plant_selection"> {{ plant.name }}</label><br> 
+        <input type="checkbox" name="plant_options" value="{{ plant.plant_id }}">
+        <label for="plant_options"> {{ plant.name }}</label><br> 
     
     {% endfor %}
   </ul>

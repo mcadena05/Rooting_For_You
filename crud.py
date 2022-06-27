@@ -76,6 +76,7 @@ def create_user_selected_plant(user_id, plant_id):
 
     return selected_plants
 
+
 def calculate_planting_date_range ():
     "function to caluate optimal date range to plant a seed"
     return {

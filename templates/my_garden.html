@@ -1,0 +1,13 @@
+% extends 'base.html' %}
+{% block title %}My Garden{% endblock %}
+
+{% block body %}
+  <h1>My Garden</h1>
+  <ul>
+    {% for plant in plants %}
+    
+         {{ plant.name }}
+    
+    {% endfor %}
+  </ul>
+{% endblock %}

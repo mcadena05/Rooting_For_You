@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, flash, session, redirect
-from model import connect_to_db, db
+from model import connect_to_db,  User, Plant, UserSelectedPlant, db
 import crud
 
 from jinja2 import StrictUndefined
@@ -90,31 +90,27 @@ def process_login():
 
     return render_template("user_details.html", user=user)
 
-
 @app.route("/plant_selection", methods=["POST"])
-def create_user_selected_plant_server():
-    # "User selects plant"
-
+def create_rating():
+    
     logged_in_email = session.get("user_email")
+    selected_plants_list = request.form.getlist("plant_options[]")
     user = crud.get_user_by_email(logged_in_email)
-    user_selected_plant_list = request.form.getlist("plant_selection")
-    plant_id= request.form.get('plant_id')
-    plant = crud.get_plant_by_id(plant_id)
-
+    
     if logged_in_email is None:
-        flash("You must log in to select a plant for your garden.")
-    elif user_selected_plant_list is None:
-        flash("Error: you didn't select a plant.")
+        flash("You must log in to rate a movie.")
+    elif not selected_plants_list:
+        flash("Error: you didn't select a plant for your rating.")
     else:
-        for user_selected_plant in user_selected_plant_list:
+        for selected_plant in selected_plants_list:
+            plant = request.form.get["{{ plant.plant_id }}"]
             user_selected_plant = crud.create_user_selected_plant(user, plant)
             db.session.add(user_selected_plant)
             db.session.commit()
 
-    # flash(f"You selected {user_selected_plant} for your garden!")
+        flash(f"You have selected {selected_plants_list} to grow in your garden.")
 
-    
-    return render_template("user_details.html", user=user, plant=plant)
+    return render_template("user_details.html", user=user)
  
 if __name__ == "__main__":
     connect_to_db(app)
