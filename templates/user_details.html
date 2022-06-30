@@ -6,4 +6,17 @@
 <h1>{{ user.email }}</h1>
 <h1>My Garden</h1>
 
+<h2>Navigation</h2>
+  <ul>
+    <li><a href="/plants">Select your garden plants</a></li>
+      </ul>
+
+<ul>
+    {% for user_selected_plant in user.selected_plants %}
+        <li>
+            <a href="//plants/<plant_id>">{{ user_selected_plant.plant.name }}</a>
+            
+        </li>
+    {% endfor %}
+</ul>
 {% endblock %}

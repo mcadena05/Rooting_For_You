@@ -41,14 +41,14 @@ def register_user():
     lname = request.form.get("lname")
     email = request.form.get("email")
     password = request.form.get("password")
-    zipcode = request.form.get("zipcode")
+    zipCodeTB = request.form.get("zipCodeTB")
 
     user = crud.get_user_by_email(email)
  
     if user:
         flash("Cannot create an account with that email. Try again.")
     else:
-        user = crud.create_user(fname, lname, email, password, zipcode)
+        user = crud.create_user(fname, lname, email, password, zipCodeTB)
         db.session.add(user)
         db.session.commit()
         flash("Account created! Please log in.")
@@ -64,11 +64,11 @@ def all_plants():
     return render_template("plant_selection.html", plants=plants)
 
 
-@app.route("/plant/<plant_id>")
-def show_plants(plant_id):
-    # "Show growing and plant info"
+@app.route("/plants/<plant_id>")
+def show_user(plant_id):
+    # """Show details on a plant in garden."""
 
-    plant = crud.get_plant_by_id(plant_id)
+    plant = crud.get_user_by_id(plant_id)
 
     return render_template("plant_info.html", plant=plant)
 
@@ -91,24 +91,27 @@ def process_login():
     return render_template("user_details.html", user=user)
 
 @app.route("/plant_selection", methods=["POST"])
-def create_rating():
+def create_user_selected_plant_server():
     
     logged_in_email = session.get("user_email")
-    selected_plants_list = request.form.getlist("plant_options[]")
+    selected_plants_list = request.form.getlist("plant_options")
     user = crud.get_user_by_email(logged_in_email)
     
     if logged_in_email is None:
-        flash("You must log in to rate a movie.")
+        flash("You must log to select a plant for your garden.")
     elif not selected_plants_list:
-        flash("Error: you didn't select a plant for your rating.")
+        flash("Error: you didn't select a plant for your garden!")
     else:
+        selected_plant_list_by_name = []
         for selected_plant in selected_plants_list:
-            plant = request.form.get["{{ plant.plant_id }}"]
-            user_selected_plant = crud.create_user_selected_plant(user, plant)
+            user_selected_plant = crud.create_user_selected_plant(user.user_id, selected_plant)
+            name_selected_plant = crud.get_plant_by_name(selected_plant)
+            selected_plant_list_by_name.append(name_selected_plant)
             db.session.add(user_selected_plant)
             db.session.commit()
-
-        flash(f"You have selected {selected_plants_list} to grow in your garden.")
+        
+      
+        flash(f"You have selected {selected_plant_list_by_name} to grow in your garden.")
 
     return render_template("user_details.html", user=user)
  

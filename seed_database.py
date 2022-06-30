@@ -15,6 +15,13 @@ os.system("createdb my_garden")
 model.connect_to_db(server.app)
 model.db.create_all()
 
+# load zone data using zipcode
+# def fetch_zone (zip):
+#     zone_api_clean =[]
+#     response = requests.get(f'https://phzmapi.org/${zip}.json')
+#     zone_api_clean = json.loads(str(response.content, 'UTF-8'))
+
+
 
 # Load plant data from JSON file
 api_clean = []
@@ -98,6 +105,7 @@ for n in range(10):
         
         user_random_plant = crud.create_user_selected_plant(user.user_id, random_plant.plant_id)
         model.db.session.add(user_random_plant)
-        
+
+       
     
 model.db.session.commit()

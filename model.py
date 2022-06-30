@@ -13,8 +13,10 @@ class User(db.Model):
     lname = db.Column(db.String(25), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
-    zipcode = db.Column(db.Integer, nullable=False)
+    zipCodeTB = db.Column(db.Integer, nullable=False)
 
+    selected_plants = db.relationship('UserSelectedPlant',  backref="user")
+ 
     
     
 class Plant(db.Model):
@@ -40,8 +42,8 @@ class Plant(db.Model):
     when_to_plant = db.Column(db.Text)
     other_care = db.Column(db.Text)
 
-
-    # backref allowed for access to users (magic attribute)
+    selected_plants = db.relationship('UserSelectedPlant',  backref="plant")
+   
 
 
 class UserSelectedPlant(db.Model):
@@ -54,8 +56,8 @@ class UserSelectedPlant(db.Model):
     user_id =  db.Column(db.Integer, db.ForeignKey("users.user_id")) 
     start_date = db.Column(db.Date)
 
-    plants = db.relationship("Plant", backref="user_selected_plants")   
-    users= db.relationship("User", backref="user_selected_plants")
+    # plant = db.relationship("Plant", backref="user_selected_plants")   
+    # user= db.relationship("User", backref="user_selected_plants")
 
 
 def connect_to_db(flask_app, db_uri="postgresql:///my_garden", echo=True):
