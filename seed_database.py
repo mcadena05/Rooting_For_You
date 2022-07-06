@@ -106,6 +106,13 @@ for n in range(10):
         user_random_plant = crud.create_user_selected_plant(user.user_id, random_plant.plant_id)
         model.db.session.add(user_random_plant)
 
-       
+companion_plant_dict = {"Asparagus": ['Calendula', 'Petunias', 'Tomatoes'], 
+"Basil": ['Peppers', 'Purslane', 'Tomatoes'], "Beans": ['Beets', 'Corn', 'Lovage', 'Nasturtium', 'Rosemary', 'Squash', 'Strawberries', 'Sunflower'],
+"Beets": ['Brassicas', 'Bush beans', 'Garlic', 'Lettuce', 'Onion family'], "Broccoli": ['Oregano', 'Cabbage', 'Brussels sprouts', 'Cauliflower'],
+"Carrots": ['Chives', 'Leeks', 'Onions', 'Peas', 'Radishes', 'Rosemary', 'Sage'], "Corn": ['Beans', 'Cucumbers', 'Dill', 'Melons', 'Peas', 'Squash', 'Sunflower'],
+"Cucumber": ['Beans', 'Borage', 'Dill', 'Lettuce', 'Nasturtiums', 'Oregano', 'Radish', 'Sunflower', 'Tansy'],
+"Lettuce": ['Chives', 'Onions', 'Oregano', 'Peas', 'Egg plants', 'Poached ', 'Radish', 'Scallions', 'Zinnia'],
+"Onion": ['Beets', 'Cabbage', 'Carrot', 'Chard', 'Lettuce', 'Strawberry ', 'Tomatoes'], 
+"Peas": ['Alyssum', 'Carrot', 'Chives', 'Corn', 'Grapes', 'Lettuce ', 'Mint', 'Radish', 'Spinach', 'Turnip']  }  
     
 model.db.session.commit()

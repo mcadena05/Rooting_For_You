@@ -4,27 +4,43 @@
 
 {% block body %}
 <h1>{{ plant.name }}</h1>
-
+  <img src="{{ plant.image_url }}">
 <p>
-  {{ plant.name }}
-  {{ plant.description }}
-  {{ plant.optimal_sun }}
-  {{ plant.optimal_soil }}
-  {{ plant.spacing }}
-  {{ plant.watering }}
-  {{ plant.feeding }}
-  {{ plant.diseases }}
-  {{ plant.pests }}
-  {{ plant.planting_considerations }}
-  {{ plant.harvesting }}
-  {{ plant.storage_use }}
-  {{ plant.other_care }}
-  {{ plant.transplanting }}
-  {{ plant.growing_from_seed }}
+  <h2>Growing Instructions</h2>
+  <h4>Description:</h4>
+  {{ plant.description }}<br>
+  <h4>{{ plant.name }} Transplanting:</h4>
+  {{ plant.transplanting }}<br>
+  <h4>{{ plant.name }} Grow from Seed:</h4>
+  {{ plant.growing_from_seed }}<br>
+
+  <h4>Optimal Amount of Sun for {{ plant.name }} :</h4>
+  {{ plant.optimal_sun }}<br>
+  <h4>Optimal Soil for {{ plant.name }} :</h4>
+  {{ plant.optimal_soil }}<br>
+  <h4>Spacing:</h4>
+  {{ plant.spacing }}<br>
+  <h4>Watering Instructions:</h4>
+  {{ plant.watering }}<br>
+  <h4>Tips on Fertilizing:</h4>
+  {{ plant.feeding }}<br>
+  <h4>Diseases to Watch for:</h4>
+  {{ plant.diseases }}<br>
+  <h4>Pests to Watch for:</h4>
+  {{ plant.pests }}<br>
+  <h4>{{ plant.name }} Considerations:</h4>
+  {{ plant.planting_considerations }}<br>
+  <h4>{{ plant.name }} Harvesting:</h4>
+  {{ plant.harvesting }}<br>
+  <h4>Storage:</h4>
+  {{ plant.storage_use }}<br>
+  <h4>Other Care:</h4>
+  {{ plant.other_care }}<br>
+  
 </p>
 
 
 
-<img src="{{ plant.image_url }}">
+
 {% endblock %}
 

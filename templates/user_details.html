@@ -1,20 +1,22 @@
-{% extends 'base.html' %}
+{% extends 'base.html'%}
+
+{% include "index.html" %}
+
 
 {% block title %}{{ user.fname }}'s Page{% endblock %}
 
 {% block body %}
-<h1>{{ user.email }}</h1>
 <h1>My Garden</h1>
 
-<h2>Navigation</h2>
-  <ul>
+<h2>My Garden Plants:</h2>
+  <!-- <ul>
     <li><a href="/plants">Select your garden plants</a></li>
-      </ul>
+      </ul> -->
 
 <ul>
     {% for user_selected_plant in user.selected_plants %}
         <li>
-            <a href="//plants/<plant_id>">{{ user_selected_plant.plant.name }}</a>
+            <a href="/plants/ {{ user_selected_plant.plant.plant_id }}">{{ user_selected_plant.plant.name }}</a>
             
         </li>
     {% endfor %}

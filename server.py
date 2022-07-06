@@ -65,10 +65,10 @@ def all_plants():
 
 
 @app.route("/plants/<plant_id>")
-def show_user(plant_id):
+def show_plant(plant_id):
     # """Show details on a plant in garden."""
 
-    plant = crud.get_user_by_id(plant_id)
+    plant = crud.get_plant_by_id(plant_id)
 
     return render_template("plant_info.html", plant=plant)
 
@@ -84,11 +84,11 @@ def process_login():
 
     if not user or user.password != password:
         flash("The email or password you entered was incorrect.")
+        return redirect("/")
     else:
         session["user_email"] = user.email
         flash(f"Welcome back, {user.fname}!")
-
-    return render_template("user_details.html", user=user)
+        return redirect(f"/users/{user.user_id}")
 
 @app.route("/plant_selection", methods=["POST"])
 def create_user_selected_plant_server():
