@@ -29,7 +29,7 @@ model.db.create_all()
 # Load plant data from JSON file
 api_clean = []
 
-response = requests.get(f'http://harvesthelper.herokuapp.com/api/v1/plants?api_key=2798dab9fb946ade5389050cb1c43db3')
+response = requests.get(f'http://harvesthelper.herokuapp.com/api/v1/plants?api_key=')
 api_clean = json.loads(str(response.content, 'UTF-8'))
 
 print(type(api_clean))

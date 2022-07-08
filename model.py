@@ -12,7 +12,7 @@ class User(db.Model):
     fname = db.Column(db.String(25), nullable=False)
     lname = db.Column(db.String(25), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
-    password = db.Column(db.String(100), nullable=False)
+    hashed = db.Column(db.String(100), nullable=False)
     zipCodeTB = db.Column(db.String, nullable=False)
     zone = db.Column(db.String, nullable=False)
     last_frost_date = db.Column(db.String, nullable=False)

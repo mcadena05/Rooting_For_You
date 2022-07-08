@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, flash, session, redirect
 from model import connect_to_db,  User, Plant, UserSelectedPlant, db
 import crud
+from passlib.hash import argon2
 
 from jinja2 import StrictUndefined
 
@@ -43,12 +44,16 @@ def register_user():
     password = request.form.get("password")
     zipCodeTB = request.form.get("zipCodeTB")
 
+    hashed = argon2.hash(password)
+
+    del password
+
     user = crud.get_user_by_email(email)
  
     if user:
         flash("Cannot create an account with that email. Try again.")
     else:
-        user = crud.create_user(fname, lname, email, password, zipCodeTB)
+        user = crud.create_user(fname, lname, email, hashed, zipCodeTB)
         db.session.add(user)
         db.session.commit()
         flash("Account created! Please log in.")
@@ -78,14 +83,14 @@ def process_login():
     # "Process user login."
 
     email = request.form.get("email")
-    password = request.form.get("password")
+    password_attempt = request.form.get("password")
 
     user = crud.get_user_by_email(email)
 
-    if not user or user.password != password:
+    if not user or not argon2.verify(password_attempt , user.hashed):
         flash("The email or password you entered was incorrect.")
         return redirect("/")
-    else:
+    elif argon2.verify(password_attempt , user.hashed):
         session["user_email"] = user.email
         flash(f"Welcome back, {user.fname}!")
         return redirect(f"/users/{user.user_id}")

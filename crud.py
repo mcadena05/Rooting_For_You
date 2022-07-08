@@ -4,7 +4,7 @@ import requests
 import json
 
 
-def create_user(fname, lname, email, password, zipCodeTB):
+def create_user(fname, lname, email, hashed, zipCodeTB):
     """Create and return a new user."""
     response = requests.get('https://phzmapi.org/'+ zipCodeTB +'.json')
     print(response.json())
@@ -19,7 +19,7 @@ def create_user(fname, lname, email, password, zipCodeTB):
 
     last_frost_date = last_frost_date_range[zone]
 
-    user = User(fname=fname, lname=lname, email=email, password=password, zipCodeTB=zipCodeTB, zone=zone, last_frost_date=last_frost_date)
+    user = User(fname=fname, lname=lname, email=email, hashed=hashed, zipCodeTB=zipCodeTB, zone=zone, last_frost_date=last_frost_date)
 
     return user
 
