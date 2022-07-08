@@ -5,7 +5,7 @@ import json
 from random import choice
 
 import crud
-import model
+import model 
 import server
 import requests
 
@@ -16,17 +16,20 @@ model.connect_to_db(server.app)
 model.db.create_all()
 
 # load zone data using zipcode
-# def fetch_zone (zip):
+# def fetch_zone (zipCodeTB):
 #     zone_api_clean =[]
-#     response = requests.get(f'https://phzmapi.org/${zip}.json')
-#     zone_api_clean = json.loads(str(response.content, 'UTF-8'))
+#     response = requests.get(f'https://phzmapi.org/${zipCodeTB}.json')
+#     zone= json.loads(response)
+#     print(zone)
+
+#     return zone
 
 
 
 # Load plant data from JSON file
 api_clean = []
 
-response = requests.get(f'http://harvesthelper.herokuapp.com/api/v1/plants?api_key={os.environ["HARVEST_HELPER_KEY"]}')
+response = requests.get(f'http://harvesthelper.herokuapp.com/api/v1/plants?api_key=2798dab9fb946ade5389050cb1c43db3')
 api_clean = json.loads(str(response.content, 'UTF-8'))
 
 print(type(api_clean))

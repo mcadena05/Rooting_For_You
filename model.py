@@ -13,8 +13,9 @@ class User(db.Model):
     lname = db.Column(db.String(25), nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
     password = db.Column(db.String(100), nullable=False)
-    zipCodeTB = db.Column(db.Integer, nullable=False)
-
+    zipCodeTB = db.Column(db.String, nullable=False)
+    zone = db.Column(db.String, nullable=False)
+    last_frost_date = db.Column(db.String, nullable=False)
     selected_plants = db.relationship('UserSelectedPlant',  backref="user")
  
     
@@ -41,6 +42,7 @@ class Plant(db.Model):
     planting_considerations = db.Column(db.Text) 
     when_to_plant = db.Column(db.Text)
     other_care = db.Column(db.Text)
+    companion_plants = db.Column(db.Text)
 
     selected_plants = db.relationship('UserSelectedPlant',  backref="plant")
    

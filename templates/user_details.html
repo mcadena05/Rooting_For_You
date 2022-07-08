@@ -3,12 +3,15 @@
 {% include "index.html" %}
 
 
-{% block title %}{{ user.fname }}'s Page{% endblock %}
+{% block title %} {{ user.fname }}'s Page{% endblock %}
 
 {% block body %}
-<h1>My Garden</h1>
-
-<h2>My Garden Plants:</h2>
+<h1>My Garden </h1>
+<h6>Your Zone:</h6>
+  {{ user.zone }}
+  <h6>Your Last Frost Dates:</h6>
+  {{ user.last_frost_date }}<br>
+<h4>My Garden Plants:</h4>
   <!-- <ul>
     <li><a href="/plants">Select your garden plants</a></li>
       </ul> -->

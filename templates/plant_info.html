@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 
+{% include "index.html" %}
+
+
 {% block title %} {{ plant.name }} - Details{% endblock %}
 
 {% block body %}
@@ -13,8 +16,7 @@
   {{ plant.transplanting }}<br>
   <h4>{{ plant.name }} Grow from Seed:</h4>
   {{ plant.growing_from_seed }}<br>
-
-  <h4>Optimal Amount of Sun for {{ plant.name }} :</h4>
+   <h4>Optimal Amount of Sun for {{ plant.name }} :</h4>
   {{ plant.optimal_sun }}<br>
   <h4>Optimal Soil for {{ plant.name }} :</h4>
   {{ plant.optimal_soil }}<br>
@@ -36,6 +38,9 @@
   {{ plant.storage_use }}<br>
   <h4>Other Care:</h4>
   {{ plant.other_care }}<br>
+  <h4>{{ plant.name }} Companion Plants:</h4>
+  {{ plant.companion_plants }}<br>
+  
   
 </p>
 

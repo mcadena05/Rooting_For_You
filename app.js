@@ -1,5 +1,3 @@
-
-
 let zipCodeTB = document.getElementById("zipCodeTB")
 let submitButton = document.getElementById("submitButton")
 let resultsContainer = document.getElementById("resultsContainer")
