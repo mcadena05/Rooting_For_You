@@ -21,9 +21,9 @@
   </head>
   <body>
     {% for msg in get_flashed_messages() %}
-      <p class="flash-msg">
+     <div class="flash-msg alert alert-success login-alert" role="alert">
         {{ msg }}
-      </p>
+       </div>
     {% endfor %}
 
     {% block body %}{% endblock %}

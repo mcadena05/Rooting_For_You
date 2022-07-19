@@ -25,11 +25,14 @@ def all_users():
     return render_template("all_users.html", users=users)
     
 
-@app.route("/users/<user_id>")
-def show_user(user_id):
+@app.route("/user_details")
+def show_user():
     # """Show details on a particular user."""
 
-    user = crud.get_user_by_id(user_id)
+    
+    logged_in_email = session.get("user_email")
+  
+    user = crud.get_user_by_email(logged_in_email)
 
     return render_template("user_details.html", user=user)
 
@@ -93,7 +96,7 @@ def process_login():
     elif argon2.verify(password_attempt , user.hashed):
         session["user_email"] = user.email
         flash(f"Welcome back, {user.fname}!")
-        return redirect(f"/users/{user.user_id}")
+        return redirect("/user_details")
 
 @app.route("/plant_selection", methods=["POST"])
 def create_user_selected_plant_server():
@@ -119,7 +122,26 @@ def create_user_selected_plant_server():
         flash(f"You have selected {selected_plant_list_by_name} to grow in your garden.")
 
     return render_template("user_details.html", user=user)
- 
+
+
+# @app.route("/sqft_garden", methods=["POST"])
+# def create_sqft_garden():
+#     # "Create sqft garden"
+
+#     grid_width = request.form.get("inputHeight")
+#     grid_length = request.form.get("inputWidth")
+
+#     logged_in_email = session.get("user_email")
+#     user = crud.get_user_by_email(logged_in_email)
+    
+#     sqft_garden = crud.create_sqft_garden(grid_width, grid_length, user)
+#     db.session.add(sqft_garden)
+#     db.session.commit()
+
+#     return render_template("sqft_garden_index.html", user=user)
+
+
 if __name__ == "__main__":
     connect_to_db(app)
     app.run(host="0.0.0.0", debug=True)
+

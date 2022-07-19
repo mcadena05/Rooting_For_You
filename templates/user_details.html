@@ -6,22 +6,48 @@
 {% block title %} {{ user.fname }}'s Page{% endblock %}
 
 {% block body %}
-<h1>My Garden </h1>
-<h6>Your Zone:</h6>
-  {{ user.zone }}
-  <h6>Your Last Frost Dates:</h6>
-  {{ user.last_frost_date }}<br>
-<h4>My Garden Plants:</h4>
-  <!-- <ul>
-    <li><a href="/plants">Select your garden plants</a></li>
-      </ul> -->
+<head>
+    <title>Rooting for You</title>
+    <link rel="stylesheet" href="static/user_details_styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arima:wght@100;300;600&family=Playfair+Display:wght@500&family=Quando&display=swap" rel="stylesheet">
 
-<ul>
+
+<h1>My Garden </h1>
+
+<div class="container-xl"></div>
+
+  <div class="row" >
+    <div class="col">
+      <h6 class="zone"><h6>Plant-Hardiness Zone:</h6>
+  {{ user.zone }}
+    </div>
+    <div class="col">
+       <h6>Last Frost Dates:</h6>
+  {{ user.last_frost_date }}<br>
+    </div>
+      </div>
+
+ 
+</div>
+
+
+    </head>
+<body>
+  
+  <div class="row row-cols-1 row-cols-md-4 g-4 ">
     {% for user_selected_plant in user.selected_plants %}
-        <li>
-            <a href="/plants/ {{ user_selected_plant.plant.plant_id }}">{{ user_selected_plant.plant.name }}</a>
-            
-        </li>
+        <div class="col">
+          <div class="card text-center text-white bg-dark mb-3" style="width: 22rem; max-height: 25rem;" >
+            <img src="{{ user_selected_plant.plant.image_png }}" class="card-img-top" alt="..." style="width: 22rem; max-height: 15rem; ">
+            <div class="card-body">
+              <h5 class="card-title"> <a class="plant_link" href="/plants/ {{ user_selected_plant.plant.plant_id }}" style="color: whitesmoke;">{{ user_selected_plant.plant.name }}</a> </h5>
+             </div>
+          </div>
+        </div>
+      
     {% endfor %}
-</ul>
+  </div>
+  </body>
 {% endblock %}

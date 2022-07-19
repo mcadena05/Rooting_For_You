@@ -24,12 +24,13 @@ model.db.create_all()
 
 #     return zone
 
-
+# api_key_variable =os.environ["HARVEST_HELPER_KEY"]
+# print(api_key_variable)
 
 # Load plant data from JSON file
 api_clean = []
 
-response = requests.get(f'http://harvesthelper.herokuapp.com/api/v1/plants?api_key=')
+response = requests.get(f'http://harvesthelper.herokuapp.com/api/v1/plants?api_key=2798dab9fb946ade5389050cb1c43db3')
 api_clean = json.loads(str(response.content, 'UTF-8'))
 
 print(type(api_clean))
@@ -49,7 +50,7 @@ for plant in api_clean:
         plant['spacing'],
         plant['watering'],
         plant['feeding'],
-        plant['diseases'],
+        plant['diseases'], 
         plant['image_url'],
         plant['pests'],
         plant['harvesting'],
@@ -63,6 +64,9 @@ for plant in api_clean:
         plant['other_care']
     )
     
+    
+
+  
     db_plant = crud.create_plant(
         
        plant_id,
@@ -117,5 +121,10 @@ companion_plant_dict = {"Asparagus": ['Calendula', 'Petunias', 'Tomatoes'],
 "Lettuce": ['Chives', 'Onions', 'Oregano', 'Peas', 'Egg plants', 'Poached ', 'Radish', 'Scallions', 'Zinnia'],
 "Onion": ['Beets', 'Cabbage', 'Carrot', 'Chard', 'Lettuce', 'Strawberry ', 'Tomatoes'], 
 "Peas": ['Alyssum', 'Carrot', 'Chives', 'Corn', 'Grapes', 'Lettuce ', 'Mint', 'Radish', 'Spinach', 'Turnip']  }  
-    
+
+plant_image_dic={
+'Parsnips': 'static/images/Parsnips.png', 'Cabbage': 'static/images/Cabbage.png', 'Eggplant': 'static/images/Eggplant.png', 'Broccoli': 'static/images/Broccoli.png',
+'Cantaloupe': 'static/images/Cantaloupe.png', 'Onion': 'static/images/Onion.png', 'Peas':'static/images/Peas.png', 'Turnips': 'https://unsplash.com/photos/EjICVrzSobA', 
+'Thyme': 'static/images/Thyme.png', 'Collard Greens': 'static/images/CollardGreens.png',
+}   
 model.db.session.commit()

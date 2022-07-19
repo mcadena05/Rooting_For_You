@@ -4,12 +4,23 @@
 {% block title %}Plant Selection{% endblock %}
 
 {% block body %}
+<head>
+  <title>Rooting for You</title>
+  <link rel="stylesheet" href="/static/styles_plant_selection.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arima:wght@100;300;600&family=Playfair+Display:wght@500&family=Quando&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  
+
   <h1>Start your Garden!</h1>
   <h2>First step is selecting which plants you want in your garden!</h2>
-  <form class = "sorted" action="/plant_selection" method="POST">
+  <form action="/plant_selection" method="POST">
   <ul>
     {% for plant in plants %}
-
+      
         <input type="checkbox" name="plant_options" value="{{ plant.plant_id }}">
         <label for="plant_options"> {{ plant.name }}</label><br> 
     
@@ -17,4 +28,5 @@
   </ul>
   <input type="submit">
 </form>
+</body>
 {% endblock %}

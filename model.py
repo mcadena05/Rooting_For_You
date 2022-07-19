@@ -1,5 +1,6 @@
 # model.py
 from flask_sqlalchemy import SQLAlchemy
+import json
 
 db = SQLAlchemy()
 
@@ -17,6 +18,7 @@ class User(db.Model):
     zone = db.Column(db.String, nullable=False)
     last_frost_date = db.Column(db.String, nullable=False)
     selected_plants = db.relationship('UserSelectedPlant',  backref="user")
+    # garden = db.relationship('SqftGarden',  backref="user")
  
     
     
@@ -43,6 +45,7 @@ class Plant(db.Model):
     when_to_plant = db.Column(db.Text)
     other_care = db.Column(db.Text)
     companion_plants = db.Column(db.Text)
+    image_png = db.Column(db.String)
 
     selected_plants = db.relationship('UserSelectedPlant',  backref="plant")
    
@@ -52,7 +55,7 @@ class UserSelectedPlant(db.Model):
     """Data model for the plants that were selected by the user"""
 
     __tablename__ = "user_selected_plants"
-
+    
     user_plant_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     plant_id =  db.Column(db.Integer, db.ForeignKey("plants.plant_id"))
     user_id =  db.Column(db.Integer, db.ForeignKey("users.user_id")) 
@@ -60,6 +63,33 @@ class UserSelectedPlant(db.Model):
 
     # plant = db.relationship("Plant", backref="user_selected_plants")   
     # user= db.relationship("User", backref="user_selected_plants")
+
+# class SqftGarden(db.Model):
+#     """Data model for a user information."""
+#     __tablename__ = "sqft_garden"
+
+#     garden_sqft  = db.Column(db.Integer, primary_key=True,autoincrement=True)  
+#     user_id =  db.Column(db.Integer, db.ForeignKey("users.user_id")) 
+#     grid_width = db.Column(db.Integer)
+#     grid_length = db.Column(db.Integer)
+#     grid_fill = db.Column(db.Text) 
+
+    # def __str__(self):
+    #     return f'{self.rows} x {self.cols}, fill {self.fill}'
+
+    # def all_points(self):
+    #     return [[row, col] for row in range(self.rows) for col in range(self.cols)]
+
+    # def set_fill(self, value):
+    #     self.fill_rows = json.dumps(value)
+
+    # def get_fill(self):
+    #     if self.fill == 'all':
+    #         return self.all_points()
+    #     else:
+    #         return json.loads(self.fill)
+
+    
 
 
 def connect_to_db(flask_app, db_uri="postgresql:///my_garden", echo=True):

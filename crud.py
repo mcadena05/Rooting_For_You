@@ -51,7 +51,7 @@ growing_from_seed, planting_considerations, when_to_plant, other_care ):
     "Beets": 'Brassicas, Bush beans, Garlic, Lettuce, Onion family', "Broccoli": 'Oregano, Cabbage, Brussels sprouts, Cauliflower',
     "Carrots": 'Chives, Leeks, Onions, Peas, Radishes, Rosemary, Sage', "Corn": 'Beans, Cucumbers, Dill, Melons, Peas, Squash, Sunflower',
     "Cucumber": 'Beans, Borage, Dill, Lettuce, Nasturtiums, Oregano, Radish, Sunflower, Tansy',
-    "Lettuce": 'Chives, Onions, Oregano, Peas, Egg plants, Poached, Radish, Scallions, Zinnia',
+    "Lettuce": 'Chives, Onions, Oregano, Peas, Eggplants, Poached, Radish, Scallions, Zinnia',
     "Onion": 'Beets, Cabbage, Carrot, Chard, Lettuce, Strawberry, Tomatoes', 
     "Peas": 'Alyssum, Carrot, Chives, Corn, Grapes, Lettuce, Mint, Radish, Spinach, Turnip',
     "Peppers": 'Basil, Marjoram, Onions, Oregano',
@@ -93,7 +93,22 @@ growing_from_seed, planting_considerations, when_to_plant, other_care ):
     "Watermelon": 'Sunflowers, Cosmos, Mint, Oregano, Thyme, Rosemary, Corn',
     "Okra": 'Calendula, Sunflowers, Nasturtiums, Radish, Cucumbers, Peppers, Melons, Lettuce, Basil'}  
 
+    plant_image_dic={
+    'Parsnips': 'static/images/Parsnips.png', 'Cabbage': 'static/images/Cabbage.png',
+    'Cantaloupe': 'static/images/Cantaloupe.png', 'Onion': 'static/images/Onion.png', 'Peas':'static/images/Peas.png', 'Turnips': 'static/images/Turnips.png', 
+    'Thyme': 'static/images/Thyme.png', 'Collard Greens': 'static/images/CollardGreens.png', 'Spinach': 'static/images/Spinach.png', 'Oregano': 'static/images/Oregano.png',
+    'Parsley': 'static/images/Parsley.png', 'Sage': 'static/images/Sage.png', 'Dill': 'static/images/Dill.png', "Cilantro":'static/images/Cilantro.png', 'Kale': 'static/images/Kale.png',
+    'Celery': 'static/images/Celery.png', 'Winter Squash': 'static/images/Winter Squash.png','Rhubarb': 'static/images/Rhubarb.png', 'Tarragon': 'static/images/Tarragon.png', 'Beans': 'static/images/Beans.png',
+    'Potatoes':'static/images/Potatoes.png', 'Sweet Corn': 'static/images/Corn.png', 'Asparagus': 'static/images/Asparagus.png', 'Garlic': 'static/images/Garlic.png', 'Pumpkins': 'static/images/Pumpkins.png',
+    'Basil': 'static/images/Basil.png', 'Chard': 'static/images/Chard.png', 'Cauliflower': 'static/images/Cauliflower.png', 'Mint': 'static/images/Mint.png', 'Carrots': 'static/images/Carrots.png',
+    'Sweet Potato': 'static/images/Sweet Potato.png', 'Cucumbers': 'static/images/Cucumbers.png', 'Rosemary': 'static/images/Rosemary.png', 'Radishes': 'static/images/Radishes.png',
+    'Chives': 'static/images/Chives.png', 'Beets': 'static/images/Beets.png', 'Lettuce': 'static/images/Lettuce.png', 'Bell Peppers': 'static/images/Bell Peppers.png', 'Brussels Sprouts': 'static/images/Brusselsprouts.png',
+    'Summer Squash': 'static/images/Summer Squash.png', 'Watermelon': 'static/images/Watermelon.png', 'Okra': 'static/images/Okra.png', 'Tomatoes': 'static/images/Tomatoes.png', "Eggplant": 'static/images/Eggplant.png',
+    'Broccoli': 'static/images/Broccoli.png'
+    }   
+
     companion_plants = companion_plant_dict[name]
+    image_png=  plant_image_dic[name]
 
     plant = Plant(
       
@@ -115,7 +130,8 @@ growing_from_seed, planting_considerations, when_to_plant, other_care ):
        planting_considerations=planting_considerations,
        when_to_plant=when_to_plant, 
        other_care=other_care,
-       companion_plants=companion_plants
+       companion_plants=companion_plants,
+       image_png=image_png
  
        )
 
@@ -123,8 +139,8 @@ growing_from_seed, planting_considerations, when_to_plant, other_care ):
 
 def get_plants():
     """Return all plants."""
-
-    return Plant.query.all()
+    return Plant.query.order_by(Plant.name.asc())
+    # return Plant.query.all()
 
 
 def get_plant_by_id(plant_id):
@@ -144,6 +160,11 @@ def create_user_selected_plant(user_id, plant_id):
     
     return selected_plants
 
+# def create_sqft_garden(grid_width, grid_length, user):
+#     "function to create the sqft garden "
+#     sqft_garden_grid = SqftGarden(grid_width=grid_width, grid_length=grid_length,user=user)
+    
+#     return sqft_garden_grid
  
 # def calculate_planting_date_range (zone):
 #     "function to determine frost date based off zone"
